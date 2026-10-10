@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Frizy Preset — Temukan link preset dari video TikTok</title>
+<meta name="description" content="Tempel link video TikTok. Frizy Preset menemukan link preset Alight Motion, XML, dan CapCut dari caption serta komentar, sekaligus mengunduh videonya tanpa watermark.">
+<meta name="theme-color" content="#08070c">
+<meta name="color-scheme" content="dark">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Frizy Preset: temukan link preset dari video TikTok">
+<meta property="og:description" content="Tempel link TikTok, dapatkan link preset Alight Motion, XML, dan CapCut dalam hitungan detik.">
+<meta property="og:image" content="icon-512.png">
+<meta name="twitter:card" content="summary">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Frizy Preset">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="favicon-64.png" type="image/png" sizes="64x64">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css?v=9">
+</head>
+<body>
+<noscript><p style="padding:24px;text-align:center">Frizy Preset membutuhkan JavaScript agar bisa dipakai.</p></noscript>
+<div class="grain" aria-hidden="true"></div>
+<div class="glow" aria-hidden="true"></div>
+<canvas id="petals" class="petals" aria-hidden="true"></canvas>
+<div class="scroll-line" aria-hidden="true"><span></span></div>
+
+<div class="shell">
+  <!-- Top bar -->
+  <header class="topbar">
+    <a class="brand" href="./" aria-label="Frizy Preset, kembali ke beranda" data-nav="home">
+      <img class="brand-mark" src="logo-mark.png" alt="" width="240" height="162" decoding="async">
+      <img class="brand-word" src="logo-word.png" alt="Frizy Preset" width="380" height="77" decoding="async">
+    </a>
+
+    <nav class="topnav" aria-label="Navigasi utama">
+      <div class="seg" data-seg="nav">
+        <span class="seg-ind" aria-hidden="true"></span>
+        <button data-nav="home" aria-current="page">Cari</button>
+        <button data-nav="history">Riwayat</button>
+        <button data-nav="saved">Tersimpan <span class="nav-count" data-saved-count hidden>0</span></button>
+        <button data-nav="guide">Panduan</button>
+      </div>
+    </nav>
+
+    <div class="top-actions">
+    <button class="install-btn" id="installBtn" hidden>
+      <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v10M8 10l4 4 4-4"/><rect x="4" y="16" width="16" height="4" rx="1.5"/></svg><span>Pasang</span>
+    </button>
+    <div class="status-chip" id="health" title="Status server">
+      <span class="dot"></span><span class="label">Memeriksa</span>
+    </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- ============ HOME ============ -->
+    <section class="view is-active" data-view="home" aria-label="Cari preset">
+      <div class="stage">
+      <div class="banner" aria-hidden="true">
+        <video id="bannerVideo" autoplay muted loop playsinline disablepictureinpicture disableremoteplayback preload="metadata" poster="banner-poster.jpg" tabindex="-1">
+          <source src="banner.webm" type="video/webm">
+          <source src="banner.mp4" type="video/mp4">
+        </video>
+        <div class="banner-shade"></div>
+      </div>
+
+      <div class="hero">
+        <p class="eyebrow"><span class="pulse"></span>Preset finder untuk editor</p>
+        <h1 class="reveal"><span class="w">Link</span> <span class="w">preset,</span><br><em class="w live">cepat dan siap</em> <span class="w">dipakai.</span></h1>
+        <p class="lede">Tempel link video TikTok. Tanpa perlu menggulir komentar, Frizy Preset membaca caption dan ratusan komentar, lalu menyusun link Alight Motion, XML, dan CapCut untuk Anda.</p>
+      </div>
+      </div>
+
+      <form class="search" id="searchForm" autocomplete="off" novalidate>
+        <div class="mode" role="tablist" aria-label="Jenis pencarian">
+          <span class="mode-ind" aria-hidden="true"></span>
+          <button type="button" role="tab" data-mode="video" aria-selected="true">
+            <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="14" rx="3"/><path d="m10.5 9.5 4 2.5-4 2.5Z"/></svg>Link video
+          </button>
+          <button type="button" role="tab" data-mode="creator" aria-selected="false">
+            <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8.5" r="3.5"/><path d="M5 20a7 7 0 0 1 14 0"/></svg>Akun kreator
+          </button>
+        </div>
+        <div class="search-field">
+          <svg class="i lead" viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 14.5 14.5 9.5"/><path d="M11 6.5l1.6-1.6a4.6 4.6 0 0 1 6.5 6.5L17.5 13"/><path d="M13 17.5l-1.6 1.6a4.6 4.6 0 0 1-6.5-6.5L6.5 11"/></svg>
+          <input id="urlInput" type="url" inputmode="url" enterkeyhint="search" spellcheck="false" placeholder="Tempel link TikTok di sini" aria-label="Link video TikTok">
+          <button type="button" class="ghost-btn" id="clearBtn" aria-label="Hapus isian" hidden>
+            <svg class="i" viewBox="0 0 24 24"><path d="M7 7l10 10M17 7 7 17"/></svg>
+          </button>
+          <button type="button" class="ghost-btn paste" id="pasteBtn">
+            <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="4" width="10" height="4" rx="1.5"/><path d="M8 6H6.5A1.5 1.5 0 0 0 5 7.5v11A1.5 1.5 0 0 0 6.5 20h11a1.5 1.5 0 0 0 1.5-1.5v-11A1.5 1.5 0 0 0 17.5 6H16"/></svg>
+            <span>Tempel</span>
+          </button>
+          <button class="cta" id="goBtn" type="submit">
+            <span class="cta-label">Cari preset</span>
+            <span class="cta-spin" aria-hidden="true"></span>
+            <svg class="i cta-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </button>
+        </div>
+        <div class="search-foot">
+          <span class="fmts" data-fmts="video"><span class="fmt">vt.tiktok.com</span><span class="fmt">vm.tiktok.com</span><span class="fmt">tiktok.com/@…/video</span></span>
+          <span class="fmts" data-fmts="creator" hidden><span class="fmt">@namakreator</span><span class="fmt">tiktok.com/@namakreator</span><span class="fmt-note">30 video terbaru dipindai</span></span>
+          <span class="kbd-hint"><kbd>/</kbd> untuk fokus</span>
+        </div>
+      </form>
+
+      <!-- idle content -->
+      <div id="idle" class="idle">
+        <div class="section-head rv">
+          <h2>Cara kerjanya</h2>
+          <p>Tiga langkah, kurang dari lima detik.</p>
+        </div>
+        <ol class="steps">
+          <li class="card step rv">
+            <span class="step-n">01</span>
+            <h3>Salin link</h3>
+            <p>Di TikTok, ketuk Bagikan lalu Salin tautan pada video preset.</p>
+          </li>
+          <li class="card step rv">
+            <span class="step-n">02</span>
+            <h3>Tempel &amp; cari</h3>
+            <p>Frizy Preset membaca caption, komentar, dan balasan dari kreator.</p>
+          </li>
+          <li class="card step rv">
+            <span class="step-n">03</span>
+            <h3>Salin atau unduh</h3>
+            <p>Salin link preset ke Alight Motion, atau simpan videonya.</p>
+          </li>
+        </ol>
+
+        <div class="section-head rv">
+          <h2>Yang bisa ditemukan</h2>
+          <p>Link dikelompokkan otomatis, link dari kreator tampil paling atas.</p>
+        </div>
+        <div class="bento">
+          <article class="rv card feat feat-am">
+            <span class="tile t-am"><svg class="i" viewBox="0 0 24 24"><path d="M12 3 3.5 7.5 12 12l8.5-4.5L12 3Z"/><path d="m3.5 12 8.5 4.5 8.5-4.5"/><path d="m3.5 16.5 8.5 4.5 8.5-4.5"/></svg></span>
+            <div><h3>Preset Alight Motion</h3><p>Link alight.link dan alightcreative.com, siap dibuka langsung di aplikasi.</p></div>
+          </article>
+          <article class="rv card feat">
+            <span class="tile t-file"><svg class="i" viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8l-5-5Z"/><path d="M14 3v5h5"/><path d="m10 13-2 2 2 2M14 13l2 2-2 2"/></svg></span>
+            <div><h3>File XML</h3><p>Google Drive, Mediafire, Mega, dan Sfile.</p></div>
+          </article>
+          <article class="rv card feat">
+            <span class="tile t-capcut"><svg class="i" viewBox="0 0 24 24"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M20 4 8.1 15.9M14.5 14.5 20 20M8.1 8.1 12 12"/></svg></span>
+            <div><h3>Template CapCut</h3><p>Tautan template yang dibagikan kreator.</p></div>
+          </article>
+          <article class="rv card feat">
+            <span class="tile t-dl"><svg class="i" viewBox="0 0 24 24"><path d="M12 4v11M7 10l5 5 5-5"/><path d="M5 20h14"/></svg></span>
+            <div><h3>Unduh video</h3><p>MP4 tanpa watermark, versi hemat kuota, atau audionya saja.</p></div>
+          </article>
+        </div>
+        <div class="card share-card rv" id="shareCard">
+          <div class="share-copy">
+            <p class="eyebrow">Jalan pintas</p>
+            <h3>Buka langsung dari tombol <em>Bagikan</em> TikTok</h3>
+            <p>Pasang Frizy Preset di HP Anda. Setelah itu, di TikTok cukup tekan Bagikan, pilih Frizy Preset, dan link presetnya langsung tampil, tanpa salin-tempel.</p>
+            <div class="share-actions">
+              <button class="btn btn-primary" id="installBtn2">
+                <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v10M8 10l4 4 4-4"/><rect x="4" y="16" width="16" height="4" rx="1.5"/></svg><span>Pasang aplikasi</span>
+              </button>
+              <span class="share-note" id="installNote">Android: Chrome · iPhone: Safari, Tambahkan ke Layar Utama</span>
+            </div>
+          </div>
+          <ol class="share-flow" aria-label="Alur berbagi">
+            <li><span class="sf-ic"><svg class="i" viewBox="0 0 24 24"><path d="M14 4l6 6-6 6"/><path d="M20 10H10a6 6 0 0 0-6 6v2"/></svg></span><span><b>Bagikan</b><small>di video TikTok</small></span></li>
+            <li><span class="sf-ic sf-brand"><svg viewBox="0 0 32 32" width="18" height="18"><path d="M11 8h11M11 8v16M11 15.5h8" stroke="#0b0a10" stroke-width="3.2" stroke-linecap="round" fill="none"/></svg></span><span><b>Frizy Preset</b><small>pilih dari daftar</small></span></li>
+            <li><span class="sf-ic sf-ok"><svg class="i" viewBox="0 0 24 24"><path d="M5 12.5 10 17 19 7.5"/></svg></span><span><b>Link siap</b><small>langsung disalin</small></span></li>
+          </ol>
+        </div>
+
+      </div>
+
+      <!-- results -->
+      <div id="results" class="results" hidden aria-live="polite"></div>
+    </section>
+
+    <!-- ============ HISTORY ============ -->
+    <section class="view" data-view="history" aria-label="Riwayat pencarian">
+      <div class="page-head">
+        <p class="eyebrow">Riwayat</p>
+        <h1 class="page-title">Pencarian <em>terakhir</em></h1>
+        <p class="lede">Buka lagi video yang pernah Anda cari. Riwayat hanya bisa dilihat oleh Anda.</p>
+      </div>
+      <div class="history-tools">
+        <span id="historyCount" class="muted-sm"></span>
+        <button class="text-btn" id="clearHistory" hidden>Hapus semua</button>
+      </div>
+      <div id="historyList" class="history-list"></div>
+    </section>
+
+    <!-- ============ GUIDE ============ -->
+    <section class="view" data-view="saved" aria-label="Link tersimpan">
+      <div class="page-head">
+        <p class="eyebrow">Koleksi</p>
+        <h1 class="page-title">Link <em>tersimpan</em></h1>
+        <p class="lede">Tandai link preset favorit dengan ikon simpan. Semuanya terkumpul di sini, siap disalin kapan saja.</p>
+      </div>
+      <div class="history-tools">
+        <span id="savedCount" class="muted-sm"></span>
+        <button class="text-btn" id="clearSaved" hidden>Hapus semua</button>
+      </div>
+      <div id="savedList" class="links saved-list"></div>
+    </section>
+
+    <section class="view" data-view="guide" aria-label="Panduan">
+      <div class="page-head">
+        <p class="eyebrow">Panduan</p>
+        <h1 class="page-title">Pertanyaan <em>yang sering</em> muncul</h1>
+        <p class="lede">Hal-hal kecil yang membuat preset lebih cepat terpasang.</p>
+      </div>
+      <div class="faq">
+        <details class="rv card qa" open>
+          <summary>Bagaimana cara memasang preset Alight Motion?<span class="chev" aria-hidden="true"></span></summary>
+          <div class="qa-body"><p>Pastikan Alight Motion sudah terpasang. Salin link preset dari Frizy Preset, buka di browser HP, lalu ketuk <b>Impor</b> saat halaman proyek muncul. Untuk file XML, unduh dari Drive lalu buka filenya dengan Alight Motion.</p></div>
+        </details>
+        <details class="rv card qa">
+          <summary>Kenapa link preset tidak ditemukan?<span class="chev" aria-hidden="true"></span></summary>
+          <div class="qa-body"><p>Beberapa kreator membagikan preset lewat bio, DM, grup Telegram, atau kode QR di dalam video. Frizy Preset hanya membaca caption, sekitar 300 komentar teratas, dan balasannya.</p></div>
+        </details>
+        <details class="rv card qa">
+          <summary>Apa arti label “Dari kreator”?<span class="chev" aria-hidden="true"></span></summary>
+          <div class="qa-body"><p>Link itu ditulis langsung oleh pemilik video, di caption atau di balasan komentar. Link seperti ini paling bisa dipercaya dan selalu ditampilkan paling atas.</p></div>
+        </details>
+        <details class="rv card qa">
+          <summary>Pilihan unduhan mana yang sebaiknya dipakai?<span class="chev" aria-hidden="true"></span></summary>
+          <div class="qa-body"><p><b>Kualitas terbaik</b> memakai H.264 dan bisa diputar di semua perangkat. <b>Resolusi tinggi</b> memakai HEVC, ukurannya lebih kecil tetapi tidak semua HP lama mendukungnya. <b>Audio saja</b> cocok untuk mengambil sound sebagai bahan edit.</p></div>
+        </details>
+        <details class="rv card qa">
+          <summary>Apakah boleh memakai preset orang lain?<span class="chev" aria-hidden="true"></span></summary>
+          <div class="qa-body"><p>Preset yang dibagikan publik umumnya boleh dipakai. Tetap cantumkan kredit untuk kreatornya, dan hanya unduh video untuk keperluan pribadi.</p></div>
+        </details>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <span>Frizy Preset hanya membaca data publik dari TikTok.</span>
+    <span class="sep">·</span>
+    <span>Selalu beri kredit kepada kreator.</span>
+    <span class="sep">·</span>
+    <a class="foot-wa" href="https://wa.me/6285166472466?text=Halo%20Frizy%20Preset%2C%20saya%20mau%20tanya%20soal%20preset" target="_blank" rel="noopener">Bantuan via WhatsApp</a>
+  </footer>
+</div>
+
+<!-- Mobile tab bar -->
+<nav class="tabbar" aria-label="Navigasi">
+  <span class="tab-ind" aria-hidden="true"></span>
+  <button data-nav="home" aria-current="page">
+    <svg class="i" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2"/></svg><span>Cari</span>
+  </button>
+  <button data-nav="history">
+    <svg class="i" viewBox="0 0 24 24"><path d="M3.5 12a8.5 8.5 0 1 0 2.5-6"/><path d="M3.5 4.5V9H8"/><path d="M12 8v4.5l3 1.8"/></svg><span>Riwayat</span>
+  </button>
+  <div class="fab-slot">
+    <button class="fab" id="fab" aria-label="Tempel link dari clipboard lalu cari">
+      <span class="fab-ring" aria-hidden="true"></span>
+      <svg class="i" viewBox="0 0 24 24"><rect x="7" y="4" width="10" height="4" rx="1.5"/><path d="M8 6H6.5A1.5 1.5 0 0 0 5 7.5v11A1.5 1.5 0 0 0 6.5 20h11a1.5 1.5 0 0 0 1.5-1.5v-11A1.5 1.5 0 0 0 17.5 6H16"/><path d="M12 11v5M9.5 13.5 12 16l2.5-2.5"/></svg>
+    </button>
+  </div>
+  <button data-nav="saved">
+    <svg class="i" viewBox="0 0 24 24"><path d="M7 4h10a1 1 0 0 1 1 1v15l-6-4-6 4V5a1 1 0 0 1 1-1Z"/></svg><span>Tersimpan</span><i class="dot-badge" data-saved-dot hidden></i>
+  </button>
+  <button data-nav="guide">
+    <svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M9.6 9.4a2.5 2.5 0 0 1 4.8.9c0 1.7-2.4 2.1-2.4 3.4"/><path d="M12 16.8h.01"/></svg><span>Panduan</span>
+  </button>
+</nav>
+
+<a class="wa" href="https://wa.me/6285166472466?text=Halo%20Frizy%20Preset%2C%20saya%20mau%20tanya%20soal%20preset" target="_blank" rel="noopener" aria-label="Chat WhatsApp Frizy Preset">
+  <span class="wa-pulse" aria-hidden="true"></span>
+  <svg class="wa-ic" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" style="width:24px;height:24px;flex:none"><path fill="currentColor" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+  <span class="wa-label"><b>Butuh bantuan?</b><span>Chat via WhatsApp</span></span>
+</a>
+<div class="modal" id="qrModal" hidden role="dialog" aria-modal="true" aria-labelledby="qrTitle">
+  <div class="modal-back" data-close></div>
+  <div class="modal-card">
+    <button class="ghost-btn modal-x" data-close aria-label="Tutup"><svg class="i" viewBox="0 0 24 24"><path d="M7 7l10 10M17 7 7 17"/></svg></button>
+    <p class="eyebrow">Buka di Alight Motion</p>
+    <h3 id="qrTitle">Pindai dengan <em>HP</em></h3>
+    <div class="qr-wrap"><img id="qrImg" alt="Kode QR link preset" width="220" height="220"><span class="qr-scan" aria-hidden="true"></span></div>
+    <p class="qr-name" id="qrName"></p>
+    <p class="qr-hint">Buka kamera HP, arahkan ke kode ini, lalu ketuk link yang muncul. Preset akan terbuka di aplikasi Alight Motion.</p>
+    <div class="lrow"><button class="btn btn-primary grow" id="qrCopy"><span class="swap"><svg class="i" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2.5"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg><span>Salin link</span></span></button><a class="btn" id="qrOpen" target="_blank" rel="noopener"><svg class="i" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9"/><path d="M18 14v4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4"/></svg><span>Buka di browser</span></a></div>
+  </div>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"><span class="toast-ic"></span><span class="toast-t"></span><span class="toast-bar"></span></div>
+
+<script src="app.js?v=9"></script>
+</body>
+</html>
